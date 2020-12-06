@@ -82,28 +82,33 @@ int main(void) {
         scanf("%d", &arr[i]);
     
     pid = fork();
+
     switch(pid) {
         case 0:
+            // sleep(1);
             printf("\nI am child process pid is %d", getpid());
             printf("\nMy parent's id is %d", getppid());
             printf("\n***QUICK SORT***\n");
             printf("\nBefore Sorting : ");
+
             for(int i = 0; i < n; i++)
-            printf("%d, ", arr[i]);
+                printf("%d, ", arr[i]);
+
             quick_sort(arr, 0, n-1);
             printf("\nAfter Sorting : ");
+            
             for(int i = 0; i < n; i++)
-
-            printf("%d, ", arr[i]);
+                printf("%d, ", arr[i]);
+            
             printf("\n-------------------------------------\n");
             printf("\nChild completed.\n");
-            //system("ps -al");
             break;
-    
+
         case -1:
             printf("\nError");
-            default:
-            //sleep(10);
+            break; 
+
+        default:
             printf("\nI am parent process pid is %d", getpid());
             printf("\n***MERGE SORT***\n");
             printf("\nBefore Sorting : ");
@@ -113,11 +118,17 @@ int main(void) {
             printf("\nAfter Sorting : ");
             for(int i = 0; i < n; i++)
             printf("%d, ", arr[i]);
+
+            int res = wait(NULL);
+            printf("\n\nParent waiting for %d child to finish...", res); 
+
             printf("\n-------------------------------------\n");
-            system("ps -al | grep a.out");
-            wait();//synchronization purpose
+            
             printf("Parent completed\n");
     }
-    //system("ps -ax");
     return 0;
 }
+
+
+
+// Orphan process => The parent process get finished before the execution of the 

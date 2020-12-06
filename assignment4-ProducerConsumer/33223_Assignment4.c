@@ -40,6 +40,7 @@ void *producer() {
 
 		printBuffer();
 		float k = rand() % 5;
+		
 		pthread_mutex_unlock(&lock);
 		sleep(k);
 		sem_post(&empty); 
@@ -59,6 +60,7 @@ void *consumer() {
 
 		printBuffer();
 		int k = rand() % 5;
+		
 		pthread_mutex_unlock(&lock);
 		sleep(k);
 		sem_post(&full);	

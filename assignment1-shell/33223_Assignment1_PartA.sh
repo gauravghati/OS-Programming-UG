@@ -1,4 +1,4 @@
-Insert(){
+Insert() {
 	fn=$1 name=$2 roll=$3 div=$4 mark1=$5 mark2=$6 mark3=$7 mark4=$8 mark5=$9
 	
 	total=`expr $mark1 + $mark2 + $mark3 + $mark4 + $mark5`
@@ -7,7 +7,7 @@ Insert(){
 	echo "Inserted sucessfully"
 }
 
-Delete(){
+Delete() {
 	fn=$1
 	roll=$2
 	
@@ -16,7 +16,7 @@ Delete(){
 	echo "Deleted sucessfully!"
 }
 
-Modify(){
+Modify() {
 	roll=$2 fn=$1 name=$3 div=$4 mark1=$5 mark2=$6 mark3=$7 mark4=$8 mark5=$9	
 	
 	total=`expr $mark1 + $mark2 + $mark3 + $mark4 + $mark5`
@@ -27,7 +27,7 @@ Modify(){
 	echo "Modified sucessfully"
 }
 
-search(){
+search() {
 	read -p "Enter roll no to be searched: " empno
     if grep "$empno" $fn
     then

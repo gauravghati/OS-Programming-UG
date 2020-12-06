@@ -57,14 +57,14 @@ int main()
             int *p=(int *)tres;
             printf("\n");
             for(int i=0;i<col2;i++)
-            printf("%d ",*(p+i));
+                printf("%d ",*(p+i));
         }
     }
     else
         printf("MULTIPLICATION NOT POSSIBLE");
 }
 
-void * multiply(void *arg) {
+void *multiply(void *arg) {
     int result;
     int p=(int )arg;
     printf("INSIDE MULT THREAD %d\n",p+1);
@@ -73,7 +73,7 @@ void * multiply(void *arg) {
     for(int i=0;i<col2;i++) {
         result=0;
         for(int j=0;j<col1;j++)
-        result = result + matrix1[p][j]*matrix2[j][i];
+            result = result + matrix1[p][j]*matrix2[j][i];
         q[i]=result;
     }
     pthread_exit(q);

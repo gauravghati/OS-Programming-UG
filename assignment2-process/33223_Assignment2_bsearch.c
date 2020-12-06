@@ -16,7 +16,7 @@ int binarySearch(int arr[], int l, int r, int x) {
 int main(int argc, char *argv[])
 {
     int i, arr[20],res, search, x;
-    printf("No of arguments passed : %d", argc);
+    printf("\nNo of arguments passed : %d", argc);
 
     for(int i=0; i<argc; i++)
         printf("\nArg[%d] : %s", i, argv[i]);

@@ -35,9 +35,9 @@ void *writerFunc(void *arg) {
  	sleep(rand()%3);
 
 	pthread_mutex_lock(&writeback);
-	data = data * 2; 
+	data = data + 10;
 	printf("WRITER %d  |  DATA %d\n", f, data);
-    	pthread_mutex_unlock(&writeback);
+	pthread_mutex_unlock(&writeback);
 }
 
 int main() {

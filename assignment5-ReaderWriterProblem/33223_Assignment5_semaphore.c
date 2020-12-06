@@ -33,7 +33,7 @@ void *writerFunc(void *arg) {
     sleep(rand()%2); 
     
     sem_wait(&writeblock);
-    data = data * 2; 
+    data = data + 2; 
     printf("WRITER %d  |  DATA %d\n", f, data);
     sem_post(&writeblock);
 }

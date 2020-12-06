@@ -13,7 +13,6 @@ void printArray(int arr[], int n) {
     printf("%d ", arr[i]);
     printf("\n");
 }
-
 void swap(int *a, int *b) {
     int t;
     t=*a; *a=*b; *b=t;
@@ -70,8 +69,19 @@ int main() {
     printf("\nMENU : \n1)HEAP SORT\n2)BUBBLE SORT\nENTER YOUR CHOICE : ");
     scanf("%d", &choice);
 
+    switch(choice) {
+        case 1 : 
+            printf("\nHEAP SORT (PARENT)");
+            heapSort(array, size);
+            break;
+        case 2 : 
+            printf("\nBUBBLE SORT (PARENT)");
+            bubbleSort(array, size);
+            break;
+    }
+
+    printf("\nFORK DONE\n");
     process_id = fork();
-    printf("\nFORK DONE");
 
     switch(process_id) {
         case -1 : 
@@ -79,21 +89,17 @@ int main() {
             break;
 
         case 0 : 
+            sleep(1); 
             printf("\n\n\t===========CHILD BLOCK=============");
             printf("\n\tCHILD ID : %d", getpid());
             printf("\n\tPARENT ID : %d", getppid());
-            switch(choice) {
-                case 1 : printf("\n\tHEAP SORT");
-                heapSort(array, size);
-                break;
-                case 2 : printf("\n\tBUBBLE SORT");
-                bubbleSort(array, size);
-                break;
-            }
-            printf("\n\tSORTED ARRAY(CHILD) : ");
+
+            printf("\n\tSORTED ARRAY (CHILD) : ");
             printArray(array, size);
+            
             for(i=0; i<size; i++)
-            temp[i] = array[i];
+                temp[i] = array[i];
+
             temp[i] = search;
             for(i=0; i<size+1; i++) {
                 sprintf(str, "%d", temp[i]);
@@ -107,16 +113,12 @@ int main() {
         default : 
             printf("\n\n\t===========PARENT BLOCK=============");
             printf("\n\tPARENT ID : %d", getpid());
-            switch(choice) {
-                case 1 : printf("\n\tHEAP SORT");
-                heapSort(array, size);
-                break;
-                case 2 : printf("\n\tBUBBLE SORT");
-                bubbleSort(array, size);
-                break;
-            }
+
             printf("\n\tSORTED ARRAY(PARENT) : ");
             printArray(array, size);
+
+            printf("\nWaited for %d child process to get finished..\n", wait(NULL));
+
             break;
     }
     return 0;
