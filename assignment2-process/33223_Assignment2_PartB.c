@@ -107,7 +107,8 @@ int main() {
                 strcpy(arg[i], str);
             }
             arg[i]=NULL;
-            execve("./bsearch", arg, NULL);
+            execv("./bsearch", arg);
+            printf("Exec function Fail: Will not print this line if exec fuctions worked properly");
             break;
         
         default : 
@@ -123,3 +124,66 @@ int main() {
     }
     return 0;
 }
+
+/*
+
+ENTER SIZE OF ARRAY : 5
+
+ENTER ARRAY ELEMENTS : 1 8 3 7 4
+
+ENTER ELEMENT TO BE SEARCHED : 3
+
+MENU : 
+1)HEAP SORT
+2)BUBBLE SORT
+ENTER YOUR CHOICE : 2
+
+BUBBLE SORT (PARENT)
+FORK DONE
+
+
+	===========PARENT BLOCK=============
+	PARENT ID : 18889
+	SORTED ARRAY(PARENT) : 1 3 4 7 8 
+
+
+	===========CHILD BLOCK=============
+	CHILD ID : 18894
+	PARENT ID : 18889
+	SORTED ARRAY (CHILD) : 1 3 4 7 8 
+
+No of arguments passed : 6
+Arg[0] : 1
+Arg[1] : 3
+Arg[2] : 4
+Arg[3] : 7
+Arg[4] : 8
+Arg[5] : 3
+	ARGC : 6
+Search : 3
+	ELEMENT FOUND AT POSITION 1.
+
+Waited for 18894 child process to get finished..
+
+*/
+
+
+/*
+
+BASIC Function : exec, followed by combination of 4 letters that are l, e, v, p
+
+1) l => pass parameters while calling function only
+    e.g. 
+    execl("/bin/ls", "ls", "-l", NULL);
+
+2) v => pass vector/array of arguments instead of passing arguments directly in function
+    e.g. 
+    execv("/bin/ls", argv); 
+
+3) e => pass envirnoment variables into the fucntions using sperate array/vector
+    e.g.
+    execve(const char *filename, char *const argv[ ], char *const envp[ ]);
+
+4) p => p represents for path, use path variable to detect the current path of directory
+
+*/

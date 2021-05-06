@@ -12,18 +12,17 @@
 #define DATA_IS_NOT_FILLED_BY_CLIENT 3
 #define DATA_FILLED_BY_CLIENT 4
 
-typedef struct mem
-{
+typedef struct mem {
     int status;
     char data[];
-}SHARED_MEMORY;
+} SHARED_MEMORY;
 
 int main()
 {
     SHARED_MEMORY *shm_ptr;
     int shmid;
     char value[100];
-    key_t key = ftok(".",1);
+    key_t key = ftok(".", 1);
 
     shmid = shmget(key, sizeof(SHARED_MEMORY), IPC_CREAT | 0666);
     if(shmid == -1)
@@ -32,8 +31,8 @@ int main()
         printf("\nShared Memory Created\n");
         
     shm_ptr = shmat(shmid, NULL, 0);
-    
-    if(shm_ptr == -1)
+
+    if(shm_ptr->status == -1)
         printf("\nError In Attaching To The Memory\n");
     else
         printf("Attached To The Shared Memory\n");
@@ -58,7 +57,7 @@ int main()
 
     shm_ptr->status = CONSUMED_BY_SERVER;
     shmdt(shm_ptr);
-    shmctl(shmid,IPC_RMID,0);
+    shmctl(shmid, IPC_RMID, 0);
     printf("\nExiting the SERVER Program\n");
     return 0;
 }

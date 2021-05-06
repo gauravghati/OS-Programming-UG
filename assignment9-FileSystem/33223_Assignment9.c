@@ -16,7 +16,6 @@ void insert()
     struct employee e;
     int n, i = 0;
     int fp = open(filename, O_CREAT, S_IRUSR | S_IWUSR);
-
     close(fp);
     fp = open(filename, O_WRONLY|O_APPEND, S_IRUSR | S_IWUSR);
     if(fp < 0) {
@@ -59,9 +58,8 @@ void modify() {
 
     printf("\nEnter ID to modify: ");
     scanf("%d", &r);
-    read(fp1, &e, sizeof(e));
     
-    do {
+    while(read(fp1, &e, sizeof(e)) > 0){
         if(e.id == r) {
             flag = 1;
             printf("\nEnter modified name: ");
@@ -70,7 +68,7 @@ void modify() {
             scanf("%s", e.branch);
         }
         write(fp2, &e, sizeof(e));
-    } while(read(fp1, &e, sizeof(e)) > 0);
+    }
 
     if(flag)
         printf("\nModification was carried out successfully!");
@@ -91,15 +89,14 @@ void delete() {
     printf("\nEnter ID to delete: ");
     scanf("%d", &r);
 
-    read(fp1, &e, sizeof(e));
-    do {
+    while(read(fp1, &e, sizeof(e)) > 0){
         if(e.id != r) {
             flag = 1;
             write(fp2, &e, sizeof(e));
         }
-    } while(read(fp1, &e, sizeof(e)) > 0);
+    }
 
-    if(flag)
+    if(!flag)
         printf("\nDeletion was carried out successfully!");
     else
         printf("\nDeletion was unsuccessful!");

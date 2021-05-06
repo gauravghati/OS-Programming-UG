@@ -12,8 +12,7 @@
 #define DATA_IS_NOT_FILLED_BY_CLIENT 3
 #define DATA_FILLED_BY_CLIENT 4
 
-typedef struct mem
-{
+typedef struct mem {
     int status;
     char data[];
 } SHARED_MEMORY;
@@ -32,7 +31,7 @@ int main(){
         printf("\nShared Memory Created\n");
 
     shm_ptr = shmat(shmid, NULL, 0);
-    if(shm_ptr == -1)
+    if(shm_ptr->status == -1)
         printf("Error In Attaching To The Memory\n");
     else
         printf("\nAttached To The Shared Memory\n");
@@ -44,7 +43,7 @@ int main(){
     printf("\nMessage recieved from SERVER:\n");
     printf("%s\n",shm_ptr->data);
     shm_ptr->status = CONSUMED_BY_CLIENT;
-    sleep(5);
+    sleep(2);
     shm_ptr->status = DATA_IS_NOT_FILLED_BY_CLIENT;
     printf("\nWrite a message:\n");
     scanf("%[^\n]", value);

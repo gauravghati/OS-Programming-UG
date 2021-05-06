@@ -1,4 +1,7 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<unistd.h>
 #include<semaphore.h>
 #include<pthread.h>
 #define N 5
@@ -16,27 +19,27 @@ int phil_num[N]={0,1,2,3,4};
 int main() {
     int i;
     pthread_t thread_id[N];
-    
+
     for(i=0;i<N;i++)
     	sem_init(&S[i],0,1);
-    	
-    for(i=0;i<N;i++) {
-        pthread_create(&thread_id[i],NULL,philospher,&phil_num[i]);
-        printf("Philosopher %d is now thinking \n",i+1);
-    }
+
     for(i=0;i<N;i++)
-        pthread_join(thread_id[i],NULL);
+        pthread_create(&thread_id[i], NULL, &philospher, &phil_num[i]);
+
+    for(i=0;i<N;i++)
+        pthread_join(thread_id[i], NULL);
 }
 
-void *philospher(void *num) {
-    while(1)
-    {
+void* philospher(void *num) {
+    while(true) {
         int *i = num;
         sleep(1);
         forkUp(*i);
-	printf("Philisopher %d is eating\n", (*i)+1);
-	sleep(1); 
+		printf("Philisopher %d is eating\n", (*i)+1);
+		sleep(1); 
         forkDown(*i);
+		sleep(1);
+		printf("Philisopher %d is Thinking\n", (*i)+1);
     }
 }
 

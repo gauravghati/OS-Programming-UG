@@ -7,33 +7,33 @@
 #include<stdlib.h>
 int main()
 {
-    int fd2,fd1,i,j,k,chars,words,s;
+    int fd2, fd1, chars=0, words=0;
     char buf[512],str[512];
-    fd1=open("myfifo1",O_RDONLY); //1
-    read(fd1,buf,sizeof(buf)); //1
-    
+
+    fd1=open("myfifo1",O_RDONLY);
+    read(fd1, buf, sizeof(buf));
+
     //2
     printf("\nData received is:\n");
-    for(i=0;i<strlen(buf);i++)
-        printf("%c",buf[i]);
+    for(int i=0; i<strlen(buf); i++)
+        printf("%c", buf[i]);
 
     close(fd1);
-    s=0;
     
     //2 Count characters, words , lines
-    for(i=0;i<strlen(buf);i++)
+    for(int i=0; i<strlen(buf); i++)
         if(buf[i]==' ')
-            s++;
+            words++;
 
-    words = s + 1;
-    chars=strlen(buf)-s;
+    words++;
+    chars=strlen(buf)-words-1;
     fd2=open("myfifo2",O_WRONLY); //3
     
     //4
-    sprintf(str, "\nNumber of lines:%d\nNumber of words:%d\nNumber of characters: %d .", s , words, chars);
+    sprintf(str, "\nNumber of words:%d\nNumber of characters: %d", words, chars+1);
     
     //5
-    write(fd2,str,strlen(str));
+    write(fd2, str, sizeof(str));
     close(fd2);
     return 0;
 }

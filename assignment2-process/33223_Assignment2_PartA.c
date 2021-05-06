@@ -85,7 +85,7 @@ int main(void) {
 
     switch(pid) {
         case 0:
-            // sleep(1);
+            sleep(1);
             printf("\nI am child process pid is %d", getpid());
             printf("\nMy parent's id is %d", getppid());
             printf("\n***QUICK SORT***\n");
@@ -105,7 +105,7 @@ int main(void) {
             break;
 
         case -1:
-            printf("\nError");
+            printf("\nError while creating process");
             break; 
 
         default:
@@ -119,8 +119,8 @@ int main(void) {
             for(int i = 0; i < n; i++)
             printf("%d, ", arr[i]);
 
-            int res = wait(NULL);
-            printf("\n\nParent waiting for %d child to finish...", res); 
+            int childpid = wait(NULL);
+            printf("\n\nParent waiting for %d child to finish...", childpid); 
 
             printf("\n-------------------------------------\n");
             
@@ -129,6 +129,33 @@ int main(void) {
     return 0;
 }
 
+/*
+OUTPUT:
 
+How many numbers do you want to sort? 5
 
-// Orphan process => The parent process get finished before the execution of the 
+Enter 5 numbers : 1 9 3 7 4  
+
+I am parent process pid is 18193
+***MERGE SORT***
+
+Before Sorting : 1, 9, 3, 7, 4, 
+
+I am child process pid is 18198
+My parent's id is 18193
+***QUICK SORT***
+
+Before Sorting : 1, 9, 3, 7, 4, 
+After Sorting : 1, 3, 4, 7, 9, 
+-------------------------------------
+
+Child completed.
+After Sorting : 1, 3, 4, 7, 9, 
+
+Parent waiting for 18198 child to finish...
+-------------------------------------
+Parent completed
+
+*/
+
+// Orphan process => The parent process get finished before the execution of the child process
